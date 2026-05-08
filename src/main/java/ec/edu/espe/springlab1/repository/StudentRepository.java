@@ -8,11 +8,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.Optional;
+
 public interface StudentRepository  extends JpaRepository<Student,Long> {
     //Buscar un estudiante por email exacto
-    boolean existsByEmail(@NotBlank @Size(max = 120) String email);
+
+    Optional<Student> findByEmail(String email);
 
     //Paginación y búsqueda por nombre
-    Page<Student> findByFullNameContainingIgnoreCase(String name, Pageable pageable);
+    boolean existsByEmail(String email);
 
 }
