@@ -15,7 +15,10 @@ public interface StudentRepository  extends JpaRepository<Student,Long> {
 
     Optional<Student> findByEmail(String email);
 
-    //Paginación y búsqueda por nombre
+    //Respuesta si existe al menos un resgistro
     boolean existsByEmail(String email);
+
+    //Paginación y búsqueda por nombre
+    Page<Student> findByFullNameContainingIgnoreCase(String name, Pageable pageable);
 
 }
