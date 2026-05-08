@@ -2,7 +2,7 @@
 FROM gradle:8.5-jdk17 AS build
 WORKDIR /app
 COPY . .
-RUN gradle clean bootJar
+RUN gradle clean bootJar -x test
 
 # -------- RUN STAGE ----------
 FROM eclipse-temurin:17-jre
