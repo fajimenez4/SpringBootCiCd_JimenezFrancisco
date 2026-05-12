@@ -56,4 +56,9 @@ public class StudentController {
                                                          @Valid @RequestBody StudentUpdateRequest req) {
         return ResponseEntity.ok(service.update(id, req));
     }
+
+    @GetMapping("/")
+    public String health() {
+        return "Aplicación Spring Boot CI/CD funcionando correctamente";
+    }
 }
