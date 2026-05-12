@@ -1,0 +1,18 @@
+name: Rollback - Revert Last Deploy
+
+on:
+  workflow_dispatch:
+
+jobs:
+  rollback:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get last successful deploy and rollback
+        run: |
+          DEPLOY_ID=$(curl -s -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
+            "https://api.render.com/v1/services/srv-d7v5785ckfvc738sqtgg/deploys?limit=10" \
+            | tr ',' '\n' | grep -A1 '"live"' | grep '"id"' | head -1 | cut -d'"' -f4)
+          
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
+            "https://api.render.com/v1/services/srv-d7v5785ckfvc738sqtgg/deploys/$DEPLOY_ID/rollback"
